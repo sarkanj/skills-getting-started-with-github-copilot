@@ -25,7 +25,7 @@ activities = {
         "description": "Learn strategies and compete in chess tournaments",
         "schedule": "Fridays, 3:30 PM - 5:00 PM",
         "max_participants": 12,
-        "participants": ["michael@mergington.edu", "daniel@mergington.edu"]
+        "participants": ["michael@mergington.edu", "daniel@mergington.edu", "user1@mail.com", "user2@mail.com", "user3@mail.com", "user4@mail.com", "user5@mail.com", "user6@mail.com", "user7@mail.com", "user8@mail.com", "user9@mail.com", "user10@mail.com"]
     },
     "Programming Class": {
         "description": "Learn programming fundamentals and build software projects",
@@ -101,6 +101,9 @@ def signup_for_activity(activity_name: str, email: str):
     # Validate student is not already signed up
     if email in activity["participants"]:
         raise HTTPException(status_code=400, detail="Student already signed up for this activity")
+
+    if len(activity["participants"]) >= activity["max_participants"]:
+        raise HTTPException(status_code=400, detail="No spots available for this activity")
 
     # Add student
     activity["participants"].append(email)
