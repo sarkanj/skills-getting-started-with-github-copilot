@@ -20,13 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const activityCard = document.createElement("div");
         activityCard.className = "activity-card";
 
-        const spotsLeft = details.max_participants - details.participants.length;
+        const spotsLeft = Math.max(0, details.max_participants - details.participants.length);
 
         activityCard.innerHTML = `
           <h4>${name}</h4>
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
-          <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <p><strong>Availability:</strong> ${spotsLeft > 0 ? `${spotsLeft} spots left` : "No spots left"}</p>
           <div class="participants-section">
             <h5>Participants</h5>
             <ul class="participants-list"></ul>
@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const option = document.createElement("option");
         option.value = name;
         option.textContent = name;
+        option.disabled = spotsLeft === 0;
         activitySelect.appendChild(option);
       });
 
